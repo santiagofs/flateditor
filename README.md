@@ -1,4 +1,4 @@
-# Flateditor
+# FlatEditor
 
 > nothing yet
 
