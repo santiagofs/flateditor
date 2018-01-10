@@ -15,14 +15,22 @@ class Editor {
     return this._content;
   }
 
+  get id() {
+    return this._id;
+  }
+
+  format(cmd, value) {
+    this._content.format(cmd,value);
+    console.log(this._elem);
+    this._elem.focus();
+  }
+
   _setEvents () {
     const me = this;
     this._elem.setAttribute('contenteditable',true);
-    this._elem.addEventListener("click", function( event ) {
+    this._elem.addEventListener("mousedown", function( evt ) {
+      evt.stopPropagation();
       if(me._fE) me._fE.setCurrentEditor(me);
-    }, true);
-    this._elem.addEventListener("blur", function( event ) {
-      if(me._fE) me._fE.unsetCurrentEditor(me);
     }, true);
   }
 
@@ -30,6 +38,9 @@ class Editor {
 
     this._fE = fE;
     this._elem = elem;
+
+    const id = this._elem.getAttribute('fe-editable');
+    this._id = id ? id : '_' + Math.random().toString(36).substr(2, 9);
 
     this._setEvents();
 

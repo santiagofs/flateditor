@@ -19,13 +19,43 @@ body {
     outline: none;
   }
   &.active {
-    border: 1px solid #099;
+    outline: 1px solid #099;
   }
+  overflow: auto;
 }
 
 .fe-toolbox {
   position: fixed;
-  right: 0;
+  right: 0px;
+  transform: translate(100%, 0);
   top: 100px;
   background: #FFF;
+  font-family: Helvetica, sans-serif;
+  transition: all .5s;
+  &.show {
+    transform: translate(0, 0);
+    box-shadow: -1px 1px 1px 0 rgba(0,0,0, .5);
+  }
+
+  a {
+    cursor: pointer;
+    display: block;
+    // width: 24px;
+    // height: 24px;
+
+    padding: 5px;
+    text-align: center;
+    box-sizing: border-box;
+    border: 1px solid #DDD;
+    span, svg {
+      display: inline-block;
+      width: 16px; height: 16px;
+      overflow: hidden;
+    }
+    span {
+      font-size: 13px;
+      font-weight: bold;
+      line-height: 16px;
+    }
+  }
 }

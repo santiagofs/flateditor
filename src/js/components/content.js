@@ -1,3 +1,8 @@
+var supportedExecComands = [
+  'formatBlock',
+  'bold',
+];
+
 class Content {
 
   set data(data) {
@@ -21,7 +26,6 @@ class Content {
     console.log(sel);
   }
 
-
   _selectElementContent (elem) {
     var range = document.createRange();
     range.selectNodeContents(elem);
@@ -30,8 +34,15 @@ class Content {
     sel.addRange(range);
   }
 
+  format(cmd, value) {
+    console.log(cmd, value);
+    if(supportedExecComands.indexOf(cmd) !== -1) {
+      console.log('exec!!');
+      document.execCommand(cmd, false, value);
+    }
+  }
+
   constructor(elem) {
-    console.log(elem);
     this._elem = elem;
     this._data = '';
     this.data = this._elem.innerHTML;
