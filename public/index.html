@@ -1,7 +1,27 @@
 <html>
+<head>
+		<title>FlatEditor</title>
+	<link type="text/css" rel="stylesheet" href="css/index.css">
+	<style>
+		.fE-layout {
+			min-height: 40px;
+		}
+	</style>
+</head>
 <body>
-	<p id="content">test</p>
+	<div id="A" fe-editable>
+		<div >Im an inner div</div>
+	</div>
+	<div id="B"  fe-editable></div>
 
 	<script src="js/bundle.js"></script>
+	<script>
+		FlatEditor.init();
+		// fE.setContent('<div > other </div>');
+
+		//var fE2 = new FlatEditor('flateditor2');
+		//fE2.setContent('<div > other  content </div>')
+
+	</script>
 </body>
 </html>

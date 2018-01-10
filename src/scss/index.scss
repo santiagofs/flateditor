@@ -1,0 +1,31 @@
+body {
+  background: #FAFAFA;
+}
+
+[fe-editable], [fe-layout] {
+  min-height: 40px;
+  box-sizing: border-box;
+  position: relative;
+
+  &.active {
+    [fe-layout] {
+      border: 1px solid #F00;
+    }
+  }
+}
+
+[fe-editable] {
+  &:focus {
+    outline: none;
+  }
+  &.active {
+    border: 1px solid #099;
+  }
+}
+
+.fe-toolbox {
+  position: fixed;
+  right: 0;
+  top: 100px;
+  background: #FFF;
+}

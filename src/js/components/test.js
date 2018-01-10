@@ -1,7 +1,7 @@
 var Test = function() {
   return {
     test: function() {
-      console.log('tesssttt!!');
+      console.log('tessstttaaaaa!!');
     }
   };
 };
