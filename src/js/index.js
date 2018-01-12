@@ -1,46 +1,43 @@
-import Editor from './components/editor.js';
-import Toolbox from './components/toolbox.js';
+// import Editor from './components/text-editor.js';
+// import Toolbox from './components/toolbox.js';
 
-class FlatEditor {
+// class FlatEditor {
 
-  constructor() {
-    this.editors = {};
-    this.currentEditor = null;
-    this._toolbox = null;
-  }
+//   constructor() {
+//     this.editors = {};
+//     this.currentEditor = null;
+//     this._toolbox = null;
+//   }
 
-  setCurrentEditor(current) {
-    if(this.currentEditor === current) return false;
+//   setCurrentEditor(current) {
+//     if(this.currentEditor === current) return false;
 
-    for(var [id, editor] of Object.entries(this.editors)) {
-      editor.deactivate();
-    }
-    this.currentEditor = current;
-    if(this.currentEditor) {
-      current.activate();
-      this._toolbox.show();
-    } else {
-      this._toolbox.hide();
-    }
-  }
+//     for(var [id, editor] of Object.entries(this.editors)) {
+//       editor.deactivate();
+//     }
+//     this.currentEditor = current;
+//     if(this.currentEditor) {
+//       current.activate();
+//       this._toolbox.show();
+//     } else {
+//       this._toolbox.hide();
+//     }
+//   }
 
-  unsetCurrentEditor() {
-    //this.currentEditor = null;
-  }
 
-  init(config) {
-    const me = this;
+//   init(config) {
+//     const me = this;
 
-    const editables = document.querySelectorAll('[fe-editable]');
-    for(var editable of editables) {
-      var editor = new Editor(editable, this);
-      this.editors[editor.id] = editor;
-    }
-    this._toolbox = new Toolbox(this);
-    document.addEventListener('mousedown', function(evt){
-      me.setCurrentEditor(null);
-    });
-  }
-}
+//     const editables = document.querySelectorAll('[fe-editable]');
+//     for(var editable of editables) {
+//       var editor = new Editor(editable, this);
+//       this.editors[editor.id] = editor;
+//     }
+//     this._toolbox = new Toolbox(this);
+//     document.addEventListener('mousedown', function(evt){
+//       me.setCurrentEditor(null);
+//     });
+//   }
+// }
 
-window.FlatEditor = new FlatEditor();
+// window.FlatEditor = new FlatEditor();

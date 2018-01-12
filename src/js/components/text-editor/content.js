@@ -54,10 +54,10 @@ class Content {
 //   var me = this;
 
 //   var createTestDiv = () => {
-//     var contentTest = document.getElementById('fE-content-test');
+//     var contentTest = document.getElementById('tE-content-test');
 //     if(!contentTest) {
 //       var testDiv = document.createElement('div');
-//       testDiv.setAttribute('id', "fE-content-test");
+//       testDiv.setAttribute('id', "tE-content-test");
 //       testDiv.style.display = 'none';
 //       contentTest = document.body.appendChild(testDiv);
 //     }

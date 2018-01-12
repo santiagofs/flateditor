@@ -30,17 +30,18 @@ class Editor {
     this._elem.setAttribute('contenteditable',true);
     this._elem.addEventListener("mousedown", function( evt ) {
       evt.stopPropagation();
-      if(me._fE) me._fE.setCurrentEditor(me);
+      if(me._tE) me._tE.setCurrentEditor(me);
     }, true);
   }
 
-  constructor(elem, fE) {
+  constructor(elem, tE) {
 
-    this._fE = fE;
+    this._tE = tE;
     this._elem = elem;
 
     const id = this._elem.getAttribute('fe-editable');
     this._id = id ? id : '_' + Math.random().toString(36).substr(2, 9);
+    this._elem.setAttribute('fe-editable', this._id);
 
     this._setEvents();
 

@@ -86,16 +86,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var FlatEditor = function () {
-  function FlatEditor() {
-    _classCallCheck(this, FlatEditor);
+var TextEditor = function () {
+  function TextEditor(config) {
+    _classCallCheck(this, TextEditor);
 
     this.editors = {};
     this.currentEditor = null;
-    this._toolbox = null;
+    this._toolbox = new _toolbox2.default(this);
+
+    var me = this;
+    document.addEventListener('mousedown', function (evt) {
+      me.setCurrentEditor(null);
+    });
   }
 
-  _createClass(FlatEditor, [{
+  _createClass(TextEditor, [{
     key: 'setCurrentEditor',
     value: function setCurrentEditor(current) {
       if (this.currentEditor === current) return false;
@@ -136,16 +141,27 @@ var FlatEditor = function () {
       }
     }
   }, {
-    key: 'unsetCurrentEditor',
-    value: function unsetCurrentEditor() {
-      //this.currentEditor = null;
+    key: '_create',
+    value: function _create(elem) {
+      var editor = new _editor2.default(elem, this);
+      this.editors[editor.id] = editor;
+      return editor;
     }
   }, {
-    key: 'init',
-    value: function init(config) {
-      var me = this;
+    key: 'create',
+    value: function create(selector) {
+      var elems = document.querySelectorAll(selector);
+      if (!elems.length) return null;
 
-      var editables = document.querySelectorAll('[fe-editable]');
+      return this._create(elems[0]);
+    }
+  }, {
+    key: 'gather',
+    value: function gather(selector) {
+      var me = this;
+      selector || (selector = '[efs-editable]');
+
+      var editables = document.querySelectorAll(selector);
       var _iteratorNormalCompletion2 = true;
       var _didIteratorError2 = false;
       var _iteratorError2 = undefined;
@@ -154,8 +170,7 @@ var FlatEditor = function () {
         for (var _iterator2 = editables[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
           var editable = _step2.value;
 
-          var editor = new _editor2.default(editable, this);
-          this.editors[editor.id] = editor;
+          this._create(editable);
         }
       } catch (err) {
         _didIteratorError2 = true;
@@ -171,18 +186,13 @@ var FlatEditor = function () {
           }
         }
       }
-
-      this._toolbox = new _toolbox2.default(this);
-      document.addEventListener('mousedown', function (evt) {
-        me.setCurrentEditor(null);
-      });
     }
   }]);
 
-  return FlatEditor;
+  return TextEditor;
 }();
 
-window.FlatEditor = new FlatEditor();
+window.efsTextEditor = new TextEditor();
 
 /***/ }),
 /* 1 */
@@ -231,7 +241,7 @@ var Editor = function () {
       this._elem.setAttribute('contenteditable', true);
       this._elem.addEventListener("mousedown", function (evt) {
         evt.stopPropagation();
-        if (me._fE) me._fE.setCurrentEditor(me);
+        if (me._tE) me._tE.setCurrentEditor(me);
       }, true);
     }
   }, {
@@ -246,14 +256,15 @@ var Editor = function () {
     }
   }]);
 
-  function Editor(elem, fE) {
+  function Editor(elem, tE) {
     _classCallCheck(this, Editor);
 
-    this._fE = fE;
+    this._tE = tE;
     this._elem = elem;
 
     var id = this._elem.getAttribute('fe-editable');
     this._id = id ? id : '_' + Math.random().toString(36).substr(2, 9);
+    this._elem.setAttribute('fe-editable', this._id);
 
     this._setEvents();
 
@@ -341,10 +352,10 @@ var Content = function () {
 //   var me = this;
 
 //   var createTestDiv = () => {
-//     var contentTest = document.getElementById('fE-content-test');
+//     var contentTest = document.getElementById('tE-content-test');
 //     if(!contentTest) {
 //       var testDiv = document.createElement('div');
-//       testDiv.setAttribute('id', "fE-content-test");
+//       testDiv.setAttribute('id', "tE-content-test");
 //       testDiv.style.display = 'none';
 //       contentTest = document.body.appendChild(testDiv);
 //     }

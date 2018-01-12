@@ -9,21 +9,29 @@
 	</style>
 </head>
 <body>
-	<div id="A" fe-editable>
+
+	<div id="A" efs-editable>
 		<div >Im an <strong>inner</strong> div</div>
 	</div>
-	<div id="B" fe-editable></div>
+	<div id="B" efs-editable></div>
+
+	<div id="C"></div>
 
 	<button onclick="collect()">Collect</button>
-	<script src="js/bundle.js"></script>
-	<script>
-		FlatEditor.init();
 
+	<div efs-layout></div>
+
+	<script src="js/efsFlatEditor.js"></script>
+	<script>
+		efsTextEditor.gather();
+
+		var other = efsTextEditor.create('#C');
+		//
 		function collect() {
 
-			for (var key in FlatEditor.editors) {
-				if (FlatEditor.editors.hasOwnProperty(key)) {
-						console.log(key, FlatEditor.editors[key].content.data);
+			for (var key in efsTextEditor.editors) {
+				if (efsTextEditor.editors.hasOwnProperty(key)) {
+						console.log(key, efsTextEditor.editors[key].content.data);
 				}
 			}
 
@@ -33,6 +41,8 @@
 			// }
 			// console.log(FlatEditor.editors)
 		};
+
+		efsLayoutEditor.gather();
 		// fE.setContent('<div > other </div>');
 
 		//var fE2 = new FlatEditor('flateditor2');

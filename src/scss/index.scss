@@ -59,3 +59,11 @@ body {
     }
   }
 }
+
+[efs-layout] {
+  min-height: 40px;
+
+  &:hover, &:focus {
+    outline: 1px solid #909;
+  }
+}
