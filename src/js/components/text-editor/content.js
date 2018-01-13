@@ -7,7 +7,7 @@ class Content {
 
   set data(data) {
     if(!data) {
-      data = 'Click here to start editing';
+      //data = 'Click here to start editing';
     }
     this._elem.innerHTML = data;
   }

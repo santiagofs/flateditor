@@ -10,14 +10,14 @@ const concat = require('gulp-concat');
 
 gulp.task('texteditorjs', (cb) => {
   webpackConfig.output.filename = 'text-editor.js';
-  return gulp.src('./src/js/components/text-editor.js')
+  return gulp.src('./src/js/components/text-editor/index.js')
     .pipe(webpackStream(webpackConfig), webpack)
     .pipe(gulp.dest('./build/js'));
 });
 
 gulp.task('layouteditorjs', (cb) => {
   webpackConfig.output.filename = 'layout-editor.js';
-  return gulp.src('./src/js/components/layout-editor.js')
+  return gulp.src('./src/js/components/layout-editor/index.js')
     .pipe(webpackStream(webpackConfig), webpack)
     .pipe(gulp.dest('./build/js'));
 });
@@ -37,7 +37,7 @@ gulp.task('buildjs', (cb) => {
     './build/js/text-editor.js',
     './build/js/layout-editor.js'
 	])
-		.pipe(concat('efsFlatEditor.js'))
+		.pipe(concat('retamaFlatEditor.js'))
 		//.pipe(uglify())
     .pipe(gulp.dest('./public/js'));
 });
@@ -52,8 +52,8 @@ gulp.task('reload', (cb) => {
 
 gulp.task('watch', () => {
 	livereload.listen();
-  gulp.watch(['./src/js/components/text-editor/**/*.js','./src/js/components/text-editor.js'], gulp.series('texteditorjs', 'buildjs','reload'));
-  gulp.watch(['./src/js/components/layout-editor/**/*.js','./src/js/components/layout-editor.js'], gulp.series('layouteditorjs', 'buildjs','reload'));
+  gulp.watch(['./src/js/components/text-editor/**/*.js'], gulp.series('texteditorjs', 'buildjs','reload'));
+  gulp.watch(['./src/js/components/layout-editor/**/*.js'], gulp.series('layouteditorjs', 'buildjs','reload'));
   gulp.watch('./src/scss/**/*.scss', gulp.series('texteditorsass'));
   gulp.watch('./public/index.html', gulp.series('reload'));
 });

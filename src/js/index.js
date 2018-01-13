@@ -28,7 +28,7 @@
 //   init(config) {
 //     const me = this;
 
-//     const editables = document.querySelectorAll('[fe-editable]');
+//     const editables = document.querySelectorAll('[retama-editable]');
 //     for(var editable of editables) {
 //       var editor = new Editor(editable, this);
 //       this.editors[editor.id] = editor;

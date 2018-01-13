@@ -1,5 +1,7 @@
-import Editor from './text-editor/editor.js';
-import Toolbox from './text-editor/toolbox.js';
+import Editor from './editor.js';
+import Toolbox from './toolbox.js';
+import * as Util from '../util';
+
 
 class TextEditor {
 
@@ -29,24 +31,28 @@ class TextEditor {
     }
   }
 
+  _testElement (elem) {
+    if(Util.isDomElement(elem)) return elem;
+    var test = document.querySelector(elem);
+    if(test) return test;
+    return null;
+  }
   _create (elem) {
-    var editor = new Editor(elem, this);
+    var editor = new Editor(this._testElement(elem), this);
     this.editors[editor.id] = editor;
     return editor;
   }
 
   create(selector) {
-    var elems = document.querySelectorAll(selector);
-    if(!elems.length) return null;
-
-    return this._create(elems[0]);
-
+    var elem = this._testElement(selector);
+    if(!elem) return null;
+    return this._create(elem);
   }
 
 
   gather(selector) {
     const me = this;
-    selector || (selector = '[efs-editable]');
+    selector || (selector = '[retama-editable]');
 
     const editables = document.querySelectorAll(selector);
     for(var editable of editables) {
@@ -57,4 +63,4 @@ class TextEditor {
   }
 }
 
-window.efsTextEditor = new TextEditor();
+window.retamaTextEditor = new TextEditor();

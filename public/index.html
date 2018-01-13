@@ -10,28 +10,28 @@
 </head>
 <body>
 
-	<div id="A" efs-editable>
+	<div id="A" retama-editable>
 		<div >Im an <strong>inner</strong> div</div>
 	</div>
-	<div id="B" efs-editable></div>
+	<div id="B" retama-editable></div>
 
 	<div id="C"></div>
 
 	<button onclick="collect()">Collect</button>
 
-	<div efs-layout></div>
+	<div id="layout-root"></div>
 
-	<script src="js/efsFlatEditor.js"></script>
+	<script src="js/retamaFlatEditor.js"></script>
 	<script>
-		efsTextEditor.gather();
+		retamaTextEditor.gather();
 
-		var other = efsTextEditor.create('#C');
+		var other = retamaTextEditor.create('#C');
 		//
 		function collect() {
 
-			for (var key in efsTextEditor.editors) {
-				if (efsTextEditor.editors.hasOwnProperty(key)) {
-						console.log(key, efsTextEditor.editors[key].content.data);
+			for (var key in retamaTextEditor.editors) {
+				if (retamaTextEditor.editors.hasOwnProperty(key)) {
+						console.log(key, retamaTextEditor.editors[key].content.data);
 				}
 			}
 
@@ -42,11 +42,9 @@
 			// console.log(FlatEditor.editors)
 		};
 
-		efsLayoutEditor.gather();
-		// fE.setContent('<div > other </div>');
 
-		//var fE2 = new FlatEditor('flateditor2');
-		//fE2.setContent('<div > other  content </div>')
+		layoutEditor = new retamaLayoutEditor('#layout-root');
+		//retamaLayoutEditor.gather();
 
 	</script>
 </body>

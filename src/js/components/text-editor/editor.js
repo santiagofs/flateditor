@@ -39,9 +39,9 @@ class Editor {
     this._tE = tE;
     this._elem = elem;
 
-    const id = this._elem.getAttribute('fe-editable');
+    const id = this._elem.getAttribute('retama-editable');
     this._id = id ? id : '_' + Math.random().toString(36).substr(2, 9);
-    this._elem.setAttribute('fe-editable', this._id);
+    this._elem.setAttribute('retama-editable', this._id);
 
     this._setEvents();
 
