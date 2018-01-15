@@ -6,7 +6,7 @@ const livereload = require('gulp-livereload');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const concat = require('gulp-concat');
-
+const webserver = require('gulp-webserver');
 
 gulp.task('texteditorjs', (cb) => {
   webpackConfig.output.filename = 'text-editor.js';
@@ -47,13 +47,19 @@ gulp.task('reload', (cb) => {
   cb();
 });
 
+gulp.task('serve', () => {
+  return gulp.src('public')
+    .pipe(webserver({
+      port: 3000,
+      livereload: true
+    }));
+});
 
-
-
-gulp.task('watch', () => {
+gulp.task('watch', gulp.series('serve', () => {
 	livereload.listen();
   gulp.watch(['./src/js/components/text-editor/**/*.js'], gulp.series('texteditorjs', 'buildjs','reload'));
   gulp.watch(['./src/js/components/layout-editor/**/*.js'], gulp.series('layouteditorjs', 'buildjs','reload'));
   gulp.watch('./src/scss/**/*.scss', gulp.series('texteditorsass'));
   gulp.watch('./public/index.html', gulp.series('reload'));
-});
+}));
+

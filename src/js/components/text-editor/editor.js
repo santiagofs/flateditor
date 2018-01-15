@@ -29,7 +29,8 @@ class Editor {
     const me = this;
     this._elem.setAttribute('contenteditable',true);
     this._elem.addEventListener("mousedown", function( evt ) {
-      evt.stopPropagation();
+      if(!me._tE.enabled) return false;
+      //evt.stopPropagation();
       if(me._tE) me._tE.setCurrentEditor(me);
     }, true);
   }

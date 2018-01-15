@@ -20,10 +20,12 @@
 	<button onclick="collect()">Collect</button>
 
 	<div id="layout-root"></div>
+	<div id="other-layout">asa</div>
 
 	<script src="js/retamaFlatEditor.js"></script>
 	<script>
 		retamaTextEditor.gather();
+		retamaTextEditor.enabled = false;
 
 		var other = retamaTextEditor.create('#C');
 		//
@@ -31,7 +33,7 @@
 
 			for (var key in retamaTextEditor.editors) {
 				if (retamaTextEditor.editors.hasOwnProperty(key)) {
-						console.log(key, retamaTextEditor.editors[key].content.data);
+					console.log(key, retamaTextEditor.editors[key].content.data);
 				}
 			}
 

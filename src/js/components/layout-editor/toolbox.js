@@ -1,16 +1,13 @@
 import icons from '../icons';
-const toolboxItems = {
-  'move': { cmd: 'move', content: icons.move},
-  'edit': { cmd: 'edit', content: icons.cog},
-  'trash': { cmd: 'trash', content: icons.trash},
-};
-
 class Toolbox {
 
   _createButton (cmd, content) {
     var btn = document.createElement('a');
     btn.innerHTML = content;
-    btn.addEventListener('mousedown', evt => this[cmd](evt));
+    btn.addEventListener('mousedown', (evt) => {
+      if(retamaTextEditor!==undefined) retamaTextEditor.setCurrentEditor(null);
+      this[cmd](evt);
+    });
     return btn;
   }
 
@@ -23,13 +20,16 @@ class Toolbox {
   _delete() {
 
   }
-
+  _selectParent(evt) {
+    evt.stopPropagation();
+    this._parent.selectParent();
+  }
   _columns() {
     this._parent.addLayout('columns');
   }
 
-  _rows() {
-    console.log(this);
+  _rows(evt) {
+    evt.stopPropagation();
     this._parent.addLayout('rows');
   }
 
@@ -53,6 +53,9 @@ class Toolbox {
     this._deleteButton = this._createButton ('_delete', icons.trash);
     this._toolbox.appendChild(this._deleteButton);
 
+    this._parentButton = this._createButton('_selectParent', icons.chevronUp);
+    this._toolbox.appendChild(this._parentButton);
+
   }
 
   addTo(parent) {
@@ -60,10 +63,13 @@ class Toolbox {
     this._moveButton.style.display = this._parent.movable ? '' : 'none';
     this._editButton.style.display = this._parent.editable ? '' : 'none';
     this._deleteButton.style.display = this._parent.deletable ? '' : 'none';
+    this._parentButton.style.display = this._parent.parent ? '' : 'none';
 
     this._parent._elem.insertBefore(this._toolbox, this._parent._elem.firstChild);
   }
   detach() {
+    console.log('detach');
+    if(!this._parent) return;
     this._parent._elem.removeChild(this._toolbox);
   }
 

@@ -12,7 +12,6 @@
 // add columns, rows, if it acts as a layout container
 // content to be edited, if it acts as a content container
 //
-
 import * as Util from '../util';
 
 class Layout {
@@ -30,13 +29,15 @@ class Layout {
 
   _addEvents() {
     const me = this;
-    this._elem.addEventListener('mouseenter', function(evt){
+    this._elem.addEventListener('mousedown', function(evt){
+      evt.stopPropagation();
+      me.select();
       me._lE._toolbox.addTo(me);
     });
     this._elem.addEventListener('mouseleave', function(evt){
       // const el = evt.toElement || evt.relatedTarget;
       // if(Util.getElementParents(el).indexOf(this) !== -1) return;
-      me._lE._toolbox.detach();
+      //me._toolbox.detach();
     });
   }
   _createEditor() {
@@ -50,7 +51,6 @@ class Layout {
     return layout;
   }
 
-
   _addContent(elems, position) {
     if(elems.length !== undefined) { // hack!!!
       for(const elem of elems) {
@@ -61,7 +61,6 @@ class Layout {
     }
   }
   _replaceContent(obj) {
-    console.log(obj)
     this._elem.innerHTML = '';
     this._addContent(obj);
   }
@@ -91,16 +90,20 @@ class Layout {
       this._replaceContent(this._createEditor()._elem);
       this.mode = 'content';
     }
-
-
-    // const layouts = children.filter()
-    // for(const child of children) {
-
-    // }
-
-
   }
 
+  selectParent() {
+    if(!this._parent) return false;
+    this._parent.select();
+    this._lE._toolbox.addTo(this._parent);
+  }
+  select() {
+    this._elem.classList.add('selected');
+    this._lE.current = this;
+  }
+  deselect() {
+    this._elem.classList.remove('selected');
+  }
 
   get movable() {
     return ((this._parent !== null) && !this._freezed);
@@ -111,9 +114,11 @@ class Layout {
   get editable() {
     return true;
   }
-
   get mode() {
     return this._mode;
+  }
+  get parent() {
+    return this._parent;
   }
 
   set mode(mode) {
@@ -128,16 +133,14 @@ class Layout {
 
     const layoutNew = this._createLayout();
 
-
     if(this.mode === 'content') {
       const layoutOriginal = this._createLayout();
 
       layoutOriginal._replaceContent(this._getContent());
-      this._replaceContent(layoutOriginal._elem);
+      this._addContent(layoutOriginal._elem);
       this.mode = mode;
     }
     this._addContent(layoutNew._elem);
-
   }
 
   constructor(elem, lE, parent) {
@@ -149,6 +152,7 @@ class Layout {
 
     this._init();
     this._addEvents();
+    
   }
 
 }

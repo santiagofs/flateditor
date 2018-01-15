@@ -10,10 +10,19 @@ class TextEditor {
     this.currentEditor = null;
     this._toolbox = new Toolbox(this);
 
+    this._enabled = true;
+
     const me = this;
     document.addEventListener('mousedown', function(evt){
+      if(evt.target.getAttribute('retama-editable')) return false;
       me.setCurrentEditor(null);
     });
+  }
+
+  get enabled() { return this._enabled;}
+  set enabled(bool) {
+    this._enabled = bool;
+    if(!this._enabled) this.setCurrentEditor(null);
   }
 
   setCurrentEditor(current) {

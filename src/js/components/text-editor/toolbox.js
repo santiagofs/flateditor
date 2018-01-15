@@ -14,6 +14,8 @@ class Toolbox {
   addMenuItemEvents(item){
     var me = this;
     item.addEventListener('mousedown', function(evt){
+      if(!me._tE.enabled) return;
+
       evt.preventDefault();
       evt.stopPropagation();
       var cmd = this.getAttribute('fe-cmd');

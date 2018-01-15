@@ -1,0 +1,115 @@
+$color-0: #909;
+$color-1: #DB097E;
+$color-2: #FF4E62;
+$color-3: #FF8A4D;
+$color-4: #FFC34D;
+$color-5: #F9F871;
+
+
+.lE-toolbox {
+    height: 40px;
+  
+    color: #FFF;
+    position: absolute;
+    top: 0px; right: 0;
+    //transform: translate(-50%, 0);
+    z-index: 900;
+  
+    a {
+      background: $color-0;
+      display: block;
+      width: 28px;
+      float: left;
+      color: #FFF;
+      fill: #FFF;
+      padding: 5px;
+      text-align: center;
+      box-sizing: border-box;
+      border: 1px solid #DDD;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    span, svg {
+      display: inline-block;
+      width: 16px; height: 16px;
+      overflow: hidden;
+    }
+    span {
+      font-size: 13px;
+      font-weight: bold;
+      line-height: 16px;
+    }
+  
+    .indent-1 & {
+      a {
+        background:$color-1;
+      }
+    }
+    .indent-2 & {
+      a {
+        background: $color-2;
+      }
+    }
+    .indent-3 & {
+        a {
+            background: $color-3;
+        }
+    }
+    .indent-4 & {
+        a {
+            background: $color-4;
+        }
+    }
+    .indent-5 & {
+        a {
+            background: $color-5;
+        }
+    }
+  }
+  
+  .retama-layout {
+    min-height: 40px;
+    display: block;
+    
+    &.rows {
+      display: flex;
+      flex-direction: column;
+    }
+    &.columns {
+      display: flex;
+      flex-direction: row;
+    }
+  
+    > * {
+      flex-grow: 1;
+    }
+  
+    outline: 1px dotted #DDD;
+  
+    &.selected {
+      outline: 1px dotted #909;
+       * {
+        outline: none;
+      }
+      &.indent-1 {
+        outline-color: #DB097E;
+      }
+      &.indent-2 {
+        outline-color: #FF4E62;
+      }
+      &.indent-3 {
+        outline-color: #FF8A4D;
+      }
+      &.indent-4 {
+        outline-color: #FFC34D;
+      }
+      &.indent-5 {
+        outline-color: #F9F871;
+      }
+    }
+  
+  
+    &.relative {
+      position: relative;
+    }
+  }

@@ -1,3 +1,5 @@
+@import './layout-editor.scss';
+
 body {
   background: #FAFAFA;
 }
@@ -67,86 +69,5 @@ body {
       font-weight: bold;
       line-height: 16px;
     }
-  }
-}
-
-
-
-.lE-toolbox {
-  height: 40px;
-
-  color: #FFF;
-  position: absolute;
-  top: 0px; right: 0;
-  z-index: 900;
-
-  a {
-    background: #909;
-    display: block;
-    width: 28px;
-    float: left;
-    color: #FFF;
-    fill: #FFF;
-    padding: 5px;
-    text-align: center;
-    box-sizing: border-box;
-    border: 1px solid #DDD;
-    cursor: pointer;
-  }
-  span, svg {
-    display: inline-block;
-    width: 16px; height: 16px;
-    overflow: hidden;
-  }
-  span {
-    font-size: 13px;
-    font-weight: bold;
-    line-height: 16px;
-  }
-
-  .indent-1 & {
-    a {
-      background: #808;
-    }
-  }
-  .indent-2 & {
-    a {
-      background: #707;
-    }
-  }
-}
-
-.retama-layout {
-  min-height: 40px;
-  display: flex;
-
-
-  &.content, &.rows {
-    flex-direction: column;
-  }
-  &.columns {
-    flex-direction: row;
-  }
-
-  > * {
-    flex-grow: 1;
-  }
-
-  &:hover, &:focus {
-    outline: 1px solid #909;
-  }
-  &.indent-1 {
-    &:hover, &:focus {
-      outline-color: #808;
-    }
-  }
-  &.indent-2  {
-    &:hover, &:focus {
-      outline-color: #707;
-    }
-  }
-
-  &.relative {
-    position: relative;
   }
 }

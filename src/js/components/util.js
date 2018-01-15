@@ -1,9 +1,11 @@
 const getElementParents = (el) => {
   var els = [];
   while (el) {
-      els.unshift(el);
+      els.push(el);
       el = el.parentNode;
   }
+  if(els[els.length-1] === document) els.pop();
+  
   return els;
 };
 
