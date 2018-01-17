@@ -1,0 +1,92 @@
+.retama-modal-backdrop {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 10000;
+  display: none;
+  font-family: Helvetica, sans-serif;
+
+  .retama-modal-btn {
+    padding: 5px 10px;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    transition: all .5s ease-in-out;
+
+    &.retama-modal-btn-ok {
+      background: #5EC25E;
+      border-color: #5EC25E;
+      color: #FFF;
+      &:hover {
+        background: darken(#5EC25E, 10%);
+        border-color: darken(#5EC25E, 10%);
+      }
+    }
+    &.retama-modal-btn-cancel {
+      background: #FFF;
+      border-color: #DDD;
+      color: #333;
+      &:hover {
+        background: #EDEDED;
+        border-color: #ADADAD;
+      }
+    }
+  }
+
+  .retama-modal-window {
+    background: #FFF;
+    box-shadow: 1px 1px 0 0 rgba(0,0,0,.5);
+    max-width: 600px;
+    margin: 100px auto;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+
+    .retama-modal-header {
+      padding: 10px;
+      border-bottom: 1px solid #DDD;
+      min-height: 18px;
+      h4 {
+        margin: 0;
+      }
+    }
+    .retama-modal-content {
+      box-sizing: border-box;
+      padding: 10px 15px 30px 15px;
+      min-height: 100px;
+    }
+    .retama-modal-footer {
+      border-top: 1px solid #DDD;
+      padding: 10px;
+      text-align: right;
+      &:after {
+        content:"";
+        display:block;
+        clear:both;
+      }
+      .retama-modal-btn-ok {
+        float: right;
+      }
+      .retama-modal-btn-cancel {
+        float: left;
+      }
+      // .retama-modal-btn {
+      //   margin-left: 10px;
+      // }
+    }
+  }
+
+
+  .retama-modal & {
+    display: block;
+  }
+}
+
+body.retama-modal {
+  height: 100vh;
+  overflow: hidden;
+}

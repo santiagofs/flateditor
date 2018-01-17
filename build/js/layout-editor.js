@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -116,10 +116,36 @@ exports.isDomElement = isDomElement;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+var icons = {
+  'paragraph': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M408 32H177.531C88.948 32 16.045 103.335 16 191.918 15.956 280.321 87.607 352 176 352v104c0 13.255 10.745 24 24 24h32c13.255 0 24-10.745 24-24V112h32v344c0 13.255 10.745 24 24 24h32c13.255 0 24-10.745 24-24V112h40c13.255 0 24-10.745 24-24V56c0-13.255-10.745-24-24-24z"/></svg>',
+  'bold': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M304.793 243.891c33.639-18.537 53.657-54.16 53.657-95.693 0-48.236-26.25-87.626-68.626-104.179C265.138 34.01 240.849 32 209.661 32H24c-8.837 0-16 7.163-16 16v33.049c0 8.837 7.163 16 16 16h33.113v318.53H24c-8.837 0-16 7.163-16 16V464c0 8.837 7.163 16 16 16h195.69c24.203 0 44.834-1.289 66.866-7.584C337.52 457.193 376 410.647 376 350.014c0-52.168-26.573-91.684-71.207-106.123zM142.217 100.809h67.444c16.294 0 27.536 2.019 37.525 6.717 15.828 8.479 24.906 26.502 24.906 49.446 0 35.029-20.32 56.79-53.029 56.79h-76.846V100.809zm112.642 305.475c-10.14 4.056-22.677 4.907-31.409 4.907h-81.233V281.943h84.367c39.645 0 63.057 25.38 63.057 63.057.001 28.425-13.66 52.483-34.782 61.284z"/></svg>',
+  'plus': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z"/></svg>',
+  'move': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M352.201 425.775l-79.196 79.196c-9.373 9.373-24.568 9.373-33.941 0l-79.196-79.196c-15.119-15.119-4.411-40.971 16.971-40.97h51.162L228 284H127.196v51.162c0 21.382-25.851 32.09-40.971 16.971L7.029 272.937c-9.373-9.373-9.373-24.569 0-33.941L86.225 159.8c15.119-15.119 40.971-4.411 40.971 16.971V228H228V127.196h-51.23c-21.382 0-32.09-25.851-16.971-40.971l79.196-79.196c9.373-9.373 24.568-9.373 33.941 0l79.196 79.196c15.119 15.119 4.411 40.971-16.971 40.971h-51.162V228h100.804v-51.162c0-21.382 25.851-32.09 40.97-16.971l79.196 79.196c9.373 9.373 9.373 24.569 0 33.941L425.773 352.2c-15.119 15.119-40.971 4.411-40.97-16.971V284H284v100.804h51.23c21.382 0 32.09 25.851 16.971 40.971z"/></svg>',
+  'moveV': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="M214.059 377.941H168V134.059h46.059c21.382 0 32.09-25.851 16.971-40.971L144.971 7.029c-9.373-9.373-24.568-9.373-33.941 0L24.971 93.088c-15.119 15.119-4.411 40.971 16.971 40.971H88v243.882H41.941c-21.382 0-32.09 25.851-16.971 40.971l86.059 86.059c9.373 9.373 24.568 9.373 33.941 0l86.059-86.059c15.12-15.119 4.412-40.971-16.97-40.971z"/></svg>',
+  'moveH': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M377.941 169.941V216H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.568 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296h243.882v46.059c0 21.382 25.851 32.09 40.971 16.971l86.059-86.059c9.373-9.373 9.373-24.568 0-33.941l-86.059-86.059c-15.119-15.12-40.971-4.412-40.971 16.97z"/></svg>',
+  'cog': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M444.788 291.1l42.616 24.599c4.867 2.809 7.126 8.618 5.459 13.985-11.07 35.642-29.97 67.842-54.689 94.586a12.016 12.016 0 0 1-14.832 2.254l-42.584-24.595a191.577 191.577 0 0 1-60.759 35.13v49.182a12.01 12.01 0 0 1-9.377 11.718c-34.956 7.85-72.499 8.256-109.219.007-5.49-1.233-9.403-6.096-9.403-11.723v-49.184a191.555 191.555 0 0 1-60.759-35.13l-42.584 24.595a12.016 12.016 0 0 1-14.832-2.254c-24.718-26.744-43.619-58.944-54.689-94.586-1.667-5.366.592-11.175 5.459-13.985L67.212 291.1a193.48 193.48 0 0 1 0-70.199l-42.616-24.599c-4.867-2.809-7.126-8.618-5.459-13.985 11.07-35.642 29.97-67.842 54.689-94.586a12.016 12.016 0 0 1 14.832-2.254l42.584 24.595a191.577 191.577 0 0 1 60.759-35.13V25.759a12.01 12.01 0 0 1 9.377-11.718c34.956-7.85 72.499-8.256 109.219-.007 5.49 1.233 9.403 6.096 9.403 11.723v49.184a191.555 191.555 0 0 1 60.759 35.13l42.584-24.595a12.016 12.016 0 0 1 14.832 2.254c24.718 26.744 43.619 58.944 54.689 94.586 1.667 5.366-.592 11.175-5.459 13.985L444.788 220.9a193.485 193.485 0 0 1 0 70.2zM336 256c0-44.112-35.888-80-80-80s-80 35.888-80 80 35.888 80 80 80 80-35.888 80-80z"/></svg>',
+  'trash': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M192 188v216c0 6.627-5.373 12-12 12h-24c-6.627 0-12-5.373-12-12V188c0-6.627 5.373-12 12-12h24c6.627 0 12 5.373 12 12zm100-12h-24c-6.627 0-12 5.373-12 12v216c0 6.627 5.373 12 12 12h24c6.627 0 12-5.373 12-12V188c0-6.627-5.373-12-12-12zm132-96c13.255 0 24 10.745 24 24v12c0 6.627-5.373 12-12 12h-20v336c0 26.51-21.49 48-48 48H80c-26.51 0-48-21.49-48-48V128H12c-6.627 0-12-5.373-12-12v-12c0-13.255 10.745-24 24-24h74.411l34.018-56.696A48 48 0 0 1 173.589 0h100.823a48 48 0 0 1 41.16 23.304L349.589 80H424zm-269.611 0h139.223L276.16 50.913A6 6 0 0 0 271.015 48h-94.028a6 6 0 0 0-5.145 2.913L154.389 80zM368 128H80v330a6 6 0 0 0 6 6h276a6 6 0 0 0 6-6V128z"/></svg>',
+  'bars': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg>',
+  'columns': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64V160h160v256zm224 0H288V160h160v256z"/></svg>',
+  'chevronUp': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"/></svg>'
+};
+
+exports.default = icons;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _layout = __webpack_require__(2);
+var _layout = __webpack_require__(3);
 
 var _layout2 = _interopRequireDefault(_layout);
 
@@ -127,7 +153,7 @@ var _util = __webpack_require__(0);
 
 var Util = _interopRequireWildcard(_util);
 
-var _toolbox = __webpack_require__(3);
+var _toolbox = __webpack_require__(6);
 
 var _toolbox2 = _interopRequireDefault(_toolbox);
 
@@ -214,12 +240,12 @@ var LayoutEditor = function () {
   return LayoutEditor;
 }();
 
-window.retamaLayoutEditor = LayoutEditor;
+window.RetamaLayoutEditor = LayoutEditor;
 
 exports.default = LayoutEditor;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -248,6 +274,12 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _util = __webpack_require__(0);
 
 var Util = _interopRequireWildcard(_util);
+
+var _layoutModal = __webpack_require__(4);
+
+var _layoutModal2 = _interopRequireDefault(_layoutModal);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -306,7 +338,7 @@ var Layout = function () {
     key: '_createEditor',
     value: function _createEditor() {
       var editorElem = document.createElement('div');
-      var editor = retamaTextEditor.create(editorElem);
+      var editor = RetamaTextEditor.create(editorElem);
       return editor;
     }
   }, {
@@ -404,25 +436,50 @@ var Layout = function () {
       this._elem.classList.remove('selected');
     }
   }, {
-    key: 'addLayout',
-    value: function addLayout(mode, position) {
+    key: '_addLayout',
+    value: function _addLayout(mode) {
       if (!this.editable) return false;
 
       var layoutNew = this._createLayout();
 
       if (this.mode === 'content') {
         var layoutOriginal = this._createLayout();
-
         layoutOriginal._replaceContent(this._getContent());
         this._addContent(layoutOriginal._elem);
         this.mode = mode;
       }
+
       this._addContent(layoutNew._elem);
+    }
+  }, {
+    key: 'addLayout',
+    value: function addLayout() {
+      if (this.mode === 'content') {
+        var me = this;
+        _layoutModal2.default.show(function () {
+          var options = _layoutModal2.default.element.getElementsByTagName('input');
+          for (var i = 0; i < options.length; i++) {
+            if (options[i].checked) {
+              me._addLayout(options[i].value);
+              break;
+            }
+          }
+        });
+      } else {
+        this._addLayout(this.mode);
+      }
+    }
+  }, {
+    key: 'removeLayout',
+    value: function removeLayout() {
+      if (!this.editable) return false;
+      this._elem.parentNode.removeChild(this._elem);
     }
   }, {
     key: 'movable',
     get: function get() {
-      return this._parent !== null && !this._freezed;
+      if (this._parent === null || this._freezed) return false;
+      return this._parent.mode;
     }
   }, {
     key: 'deletable',
@@ -471,7 +528,89 @@ var Layout = function () {
 exports.default = Layout;
 
 /***/ }),
-/* 3 */
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _icons = __webpack_require__(1);
+
+var _icons2 = _interopRequireDefault(_icons);
+
+var _index = __webpack_require__(5);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var modalContent = document.createElement('div');
+modalContent.classList.add('layout-modal');
+modalContent.setAttribute('id', 'layout-modal');
+
+var description = document.createElement('p');
+description.innerHTML = 'Choose what do you want to add:';
+modalContent.appendChild(description);
+
+var cells = document.createElement('div');
+cells.classList.add('cells');
+
+var leftCell = document.createElement('label');
+leftCell.classList.add('cell', 'left-cell');
+var leftImg = document.createElement('div');
+leftImg.classList.add('img');
+leftImg.innerHTML = _icons2.default.bars;
+var leftCaption = document.createElement('div');
+leftCaption.innerHTML = '<input name="mode" type="radio" value="rows" checked="checked"> <span>Rows</span>';
+leftCell.appendChild(leftImg);
+leftCell.appendChild(leftCaption);
+cells.appendChild(leftCell);
+
+var rightCell = document.createElement('label');
+rightCell.classList.add('cell', 'right-cell');
+var rightImg = document.createElement('div');
+rightImg.classList.add('img');
+rightImg.innerHTML = _icons2.default.columns;
+var rightCaption = document.createElement('div');
+rightCaption.innerHTML = '<input name="mode" type="radio" value="columns"> <span>Columns</span>';
+rightCell.appendChild(rightImg);
+rightCell.appendChild(rightCaption);
+cells.appendChild(rightCell);
+
+modalContent.appendChild(cells);
+
+var LayoutModal = function (_Modal) {
+  _inherits(LayoutModal, _Modal);
+
+  function LayoutModal() {
+    _classCallCheck(this, LayoutModal);
+
+    var _this = _possibleConstructorReturn(this, (LayoutModal.__proto__ || Object.getPrototypeOf(LayoutModal)).call(this));
+
+    _this.content = modalContent.outerHTML;
+    _this.title = 'Select Layout';
+    console.log('child title', _this.title);
+    return _this;
+  }
+
+  return LayoutModal;
+}(_index2.default);
+
+exports.default = new LayoutModal();
+//export default modalContent.outerHTML;
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -483,7 +622,148 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _icons = __webpack_require__(4);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Modal = function () {
+  _createClass(Modal, [{
+    key: 'cancel',
+    value: function cancel() {
+      this.hide();
+    }
+  }, {
+    key: 'ok',
+    value: function ok() {
+      this._callback();
+      this.hide();
+    }
+  }, {
+    key: '_create',
+    value: function _create() {
+      var _this = this;
+
+      var me = this;
+
+      this._backdrop = document.createElement('div');
+      this._backdrop.classList.add('retama-modal-backdrop');
+      this._backdrop.addEventListener('mousedown', function (evt) {
+        evt.stopPropagation();
+      });
+
+      this._window = document.createElement('div');
+      this._window.classList.add('retama-modal-window');
+
+      this._header = document.createElement('header');
+      this._header.classList.add('retama-modal-header');
+      this._heading = document.createElement('h4');
+      this._heading.innerHTML = 'Modal Heading';
+      this._header.appendChild(this._heading);
+
+      this._content = document.createElement('div');
+      this._content.classList.add('retama-modal-content');
+
+      this._footer = document.createElement('footer');
+      this._footer.classList.add('retama-modal-footer');
+
+      this._okButton = document.createElement('a');
+      this._okButton.innerHTML = 'OK';
+      this._okButton.classList.add('retama-modal-btn', 'retama-modal-btn-ok');
+      this._okButton.addEventListener('click', function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        if (_this._callback) {
+          _this.ok();
+        } else {
+          _this.cancel();
+        }
+      });
+
+      this._cancelButton = document.createElement('a');
+      this._cancelButton.innerHTML = 'Cancel';
+      this._cancelButton.classList.add('retama-modal-btn', 'retama-modal-btn-cancel');
+      this._cancelButton.addEventListener('click', function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        _this.cancel();
+      });
+
+      this._footer.appendChild(this._cancelButton);
+      this._footer.appendChild(this._okButton);
+
+      this._window.appendChild(this._header);
+      this._window.appendChild(this._content);
+      this._window.appendChild(this._footer);
+
+      this._backdrop.appendChild(this._window);
+
+      document.body.appendChild(this._backdrop);
+    }
+  }, {
+    key: 'show',
+    value: function show(callback) {
+      this._callback = callback || null;
+      // this._content.innerHTML = content || '';
+      // this._heading.innerHTML = caption || '';
+      document.body.classList.add('retama-modal');
+    }
+  }, {
+    key: 'hide',
+    value: function hide() {
+      document.body.classList.remove('retama-modal');
+      // this._content.innerHTML = '';
+      // this._callback = null;
+      // this._heading.innerHTML = '';
+    }
+  }, {
+    key: 'title',
+    get: function get() {
+      return this._heading.innerHTML;
+    },
+    set: function set(title) {
+      console.log('super title', title);
+      this._heading.innerHTML = title;
+    }
+  }, {
+    key: 'content',
+    get: function get() {
+      return this._content.innerHTML;
+    },
+    set: function set(content) {
+      this._content.innerHTML = content;
+    }
+  }, {
+    key: 'element',
+    get: function get() {
+      return this._content;
+    }
+  }]);
+
+  function Modal() {
+    _classCallCheck(this, Modal);
+
+    this._create();
+  }
+
+  return Modal;
+}();
+
+window.RetamaModal = new Modal();
+
+exports.default = Modal;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _icons = __webpack_require__(1);
 
 var _icons2 = _interopRequireDefault(_icons);
 
@@ -500,9 +780,10 @@ var Toolbox = function () {
       var btn = document.createElement('a');
       btn.innerHTML = content;
       btn.addEventListener('mousedown', function (evt) {
-        if (retamaTextEditor !== undefined) retamaTextEditor.setCurrentEditor(null);
+        if (RetamaTextEditor !== undefined) RetamaTextEditor.setCurrentEditor(null);
         _this[cmd](evt);
       });
+      btn.classList.add(cmd);
       return btn;
     }
   }, {
@@ -513,7 +794,11 @@ var Toolbox = function () {
     value: function _edit() {}
   }, {
     key: '_delete',
-    value: function _delete() {}
+    value: function _delete(evt) {
+      evt.stopPropagation();
+      this._parent.removeLayout();
+      //this._calcVisibleButtons();
+    }
   }, {
     key: '_selectParent',
     value: function _selectParent(evt) {
@@ -521,15 +806,11 @@ var Toolbox = function () {
       this._parent.selectParent();
     }
   }, {
-    key: '_columns',
-    value: function _columns() {
-      this._parent.addLayout('columns');
-    }
-  }, {
-    key: '_rows',
-    value: function _rows(evt) {
+    key: '_add',
+    value: function _add(evt) {
       evt.stopPropagation();
-      this._parent.addLayout('rows');
+      this._parent.addLayout();
+      this._calcVisibleButtons();
     }
   }, {
     key: 'create',
@@ -544,11 +825,8 @@ var Toolbox = function () {
       this._editButton = this._createButton('_edit', _icons2.default.cog);
       this._toolbox.appendChild(this._editButton);
 
-      this._rowsButton = this._createButton('_rows', _icons2.default.bars);
-      this._toolbox.appendChild(this._rowsButton);
-
-      this._columnsButton = this._createButton('_columns', _icons2.default.columns);
-      this._toolbox.appendChild(this._columnsButton);
+      this._addButton = this._createButton('_add', _icons2.default.plus);
+      this._toolbox.appendChild(this._addButton);
 
       this._deleteButton = this._createButton('_delete', _icons2.default.trash);
       this._toolbox.appendChild(this._deleteButton);
@@ -557,22 +835,32 @@ var Toolbox = function () {
       this._toolbox.appendChild(this._parentButton);
     }
   }, {
-    key: 'addTo',
-    value: function addTo(parent) {
-      this._parent = parent;
+    key: '_calcVisibleButtons',
+    value: function _calcVisibleButtons() {
       this._moveButton.style.display = this._parent.movable ? '' : 'none';
+      this._moveButton.innerHTML = this._parent.movable === 'rows' ? _icons2.default.moveV : _icons2.default.moveH;
+
       this._editButton.style.display = this._parent.editable ? '' : 'none';
       this._deleteButton.style.display = this._parent.deletable ? '' : 'none';
       this._parentButton.style.display = this._parent.parent ? '' : 'none';
 
+      //this._addButton.style.display = this._parent.mode !== 'content' ? '' : 'none';
+      //this._columnsButton.style.display = this._parent.mode !== 'rows' ? '' : 'none';
+      //this._rowsButton.style.display = this._parent.mode !== 'columns' ? '' : 'none';
+    }
+  }, {
+    key: 'addTo',
+    value: function addTo(parent) {
+      this._parent = parent;
+      this._calcVisibleButtons();
       this._parent._elem.insertBefore(this._toolbox, this._parent._elem.firstChild);
     }
   }, {
     key: 'detach',
     value: function detach() {
-      console.log('detach');
       if (!this._parent) return;
       this._parent._elem.removeChild(this._toolbox);
+      this._parent = null;
     }
   }]);
 
@@ -588,30 +876,6 @@ var Toolbox = function () {
 }();
 
 exports.default = Toolbox;
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var icons = {
-  'paragraph': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M408 32H177.531C88.948 32 16.045 103.335 16 191.918 15.956 280.321 87.607 352 176 352v104c0 13.255 10.745 24 24 24h32c13.255 0 24-10.745 24-24V112h32v344c0 13.255 10.745 24 24 24h32c13.255 0 24-10.745 24-24V112h40c13.255 0 24-10.745 24-24V56c0-13.255-10.745-24-24-24z"/></svg>',
-  'bold': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M304.793 243.891c33.639-18.537 53.657-54.16 53.657-95.693 0-48.236-26.25-87.626-68.626-104.179C265.138 34.01 240.849 32 209.661 32H24c-8.837 0-16 7.163-16 16v33.049c0 8.837 7.163 16 16 16h33.113v318.53H24c-8.837 0-16 7.163-16 16V464c0 8.837 7.163 16 16 16h195.69c24.203 0 44.834-1.289 66.866-7.584C337.52 457.193 376 410.647 376 350.014c0-52.168-26.573-91.684-71.207-106.123zM142.217 100.809h67.444c16.294 0 27.536 2.019 37.525 6.717 15.828 8.479 24.906 26.502 24.906 49.446 0 35.029-20.32 56.79-53.029 56.79h-76.846V100.809zm112.642 305.475c-10.14 4.056-22.677 4.907-31.409 4.907h-81.233V281.943h84.367c39.645 0 63.057 25.38 63.057 63.057.001 28.425-13.66 52.483-34.782 61.284z"/></svg>',
-  'plus': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z"/></svg>',
-  'move': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M352.201 425.775l-79.196 79.196c-9.373 9.373-24.568 9.373-33.941 0l-79.196-79.196c-15.119-15.119-4.411-40.971 16.971-40.97h51.162L228 284H127.196v51.162c0 21.382-25.851 32.09-40.971 16.971L7.029 272.937c-9.373-9.373-9.373-24.569 0-33.941L86.225 159.8c15.119-15.119 40.971-4.411 40.971 16.971V228H228V127.196h-51.23c-21.382 0-32.09-25.851-16.971-40.971l79.196-79.196c9.373-9.373 24.568-9.373 33.941 0l79.196 79.196c15.119 15.119 4.411 40.971-16.971 40.971h-51.162V228h100.804v-51.162c0-21.382 25.851-32.09 40.97-16.971l79.196 79.196c9.373 9.373 9.373 24.569 0 33.941L425.773 352.2c-15.119 15.119-40.971 4.411-40.97-16.971V284H284v100.804h51.23c21.382 0 32.09 25.851 16.971 40.971z"/></svg>',
-  'cog': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M444.788 291.1l42.616 24.599c4.867 2.809 7.126 8.618 5.459 13.985-11.07 35.642-29.97 67.842-54.689 94.586a12.016 12.016 0 0 1-14.832 2.254l-42.584-24.595a191.577 191.577 0 0 1-60.759 35.13v49.182a12.01 12.01 0 0 1-9.377 11.718c-34.956 7.85-72.499 8.256-109.219.007-5.49-1.233-9.403-6.096-9.403-11.723v-49.184a191.555 191.555 0 0 1-60.759-35.13l-42.584 24.595a12.016 12.016 0 0 1-14.832-2.254c-24.718-26.744-43.619-58.944-54.689-94.586-1.667-5.366.592-11.175 5.459-13.985L67.212 291.1a193.48 193.48 0 0 1 0-70.199l-42.616-24.599c-4.867-2.809-7.126-8.618-5.459-13.985 11.07-35.642 29.97-67.842 54.689-94.586a12.016 12.016 0 0 1 14.832-2.254l42.584 24.595a191.577 191.577 0 0 1 60.759-35.13V25.759a12.01 12.01 0 0 1 9.377-11.718c34.956-7.85 72.499-8.256 109.219-.007 5.49 1.233 9.403 6.096 9.403 11.723v49.184a191.555 191.555 0 0 1 60.759 35.13l42.584-24.595a12.016 12.016 0 0 1 14.832 2.254c24.718 26.744 43.619 58.944 54.689 94.586 1.667 5.366-.592 11.175-5.459 13.985L444.788 220.9a193.485 193.485 0 0 1 0 70.2zM336 256c0-44.112-35.888-80-80-80s-80 35.888-80 80 35.888 80 80 80 80-35.888 80-80z"/></svg>',
-  'trash': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M192 188v216c0 6.627-5.373 12-12 12h-24c-6.627 0-12-5.373-12-12V188c0-6.627 5.373-12 12-12h24c6.627 0 12 5.373 12 12zm100-12h-24c-6.627 0-12 5.373-12 12v216c0 6.627 5.373 12 12 12h24c6.627 0 12-5.373 12-12V188c0-6.627-5.373-12-12-12zm132-96c13.255 0 24 10.745 24 24v12c0 6.627-5.373 12-12 12h-20v336c0 26.51-21.49 48-48 48H80c-26.51 0-48-21.49-48-48V128H12c-6.627 0-12-5.373-12-12v-12c0-13.255 10.745-24 24-24h74.411l34.018-56.696A48 48 0 0 1 173.589 0h100.823a48 48 0 0 1 41.16 23.304L349.589 80H424zm-269.611 0h139.223L276.16 50.913A6 6 0 0 0 271.015 48h-94.028a6 6 0 0 0-5.145 2.913L154.389 80zM368 128H80v330a6 6 0 0 0 6 6h276a6 6 0 0 0 6-6V128z"/></svg>',
-  'bars': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg>',
-  'columns': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64V160h160v256zm224 0H288V160h160v256z"/></svg>',
-  'chevronUp': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"/></svg>'
-};
-
-exports.default = icons;
 
 /***/ })
 /******/ ]);

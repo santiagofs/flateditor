@@ -24,16 +24,16 @@
 
 	<script src="js/retamaFlatEditor.js"></script>
 	<script>
-		retamaTextEditor.gather();
-		retamaTextEditor.enabled = false;
+		RetamaTextEditor.gather();
+		RetamaTextEditor.enabled = false;
 
-		var other = retamaTextEditor.create('#C');
+		var other = RetamaTextEditor.create('#C');
 		//
 		function collect() {
 
-			for (var key in retamaTextEditor.editors) {
-				if (retamaTextEditor.editors.hasOwnProperty(key)) {
-					console.log(key, retamaTextEditor.editors[key].content.data);
+			for (var key in RetamaTextEditor.editors) {
+				if (RetamaTextEditor.editors.hasOwnProperty(key)) {
+					console.log(key, RetamaTextEditor.editors[key].content.data);
 				}
 			}
 
@@ -45,8 +45,12 @@
 		};
 
 
-		layoutEditor = new retamaLayoutEditor('#layout-root');
+		layoutEditor = new RetamaLayoutEditor('#layout-root');
 		//retamaLayoutEditor.gather();
+
+		// RetamaModal.show('<div class="test">hola</div>', 'the caption', function(){
+		// 	console.log('ok triggered');
+		// });
 
 	</script>
 </body>

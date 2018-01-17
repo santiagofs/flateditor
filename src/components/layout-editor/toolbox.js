@@ -5,9 +5,10 @@ class Toolbox {
     var btn = document.createElement('a');
     btn.innerHTML = content;
     btn.addEventListener('mousedown', (evt) => {
-      if(retamaTextEditor!==undefined) retamaTextEditor.setCurrentEditor(null);
+      if(RetamaTextEditor!==undefined) RetamaTextEditor.setCurrentEditor(null);
       this[cmd](evt);
     });
+    btn.classList.add(cmd);
     return btn;
   }
 
@@ -17,21 +18,21 @@ class Toolbox {
   _edit() {
 
   }
-  _delete() {
-
+  _delete(evt) {
+    evt.stopPropagation();
+    this._parent.removeLayout();
+    //this._calcVisibleButtons();
   }
   _selectParent(evt) {
     evt.stopPropagation();
     this._parent.selectParent();
   }
-  _columns() {
-    this._parent.addLayout('columns');
+  _add(evt) {
+    evt.stopPropagation();
+    this._parent.addLayout();
+    this._calcVisibleButtons();
   }
 
-  _rows(evt) {
-    evt.stopPropagation();
-    this._parent.addLayout('rows');
-  }
 
   create() {
     var me = this;
@@ -44,33 +45,38 @@ class Toolbox {
     this._editButton = this._createButton ('_edit', icons.cog);
     this._toolbox.appendChild(this._editButton);
 
-    this._rowsButton = this._createButton('_rows', icons.bars);
-    this._toolbox.appendChild(this._rowsButton);
-
-    this._columnsButton = this._createButton('_columns', icons.columns);
-    this._toolbox.appendChild(this._columnsButton);
+    this._addButton = this._createButton('_add', icons.plus);
+    this._toolbox.appendChild(this._addButton);
 
     this._deleteButton = this._createButton ('_delete', icons.trash);
     this._toolbox.appendChild(this._deleteButton);
 
     this._parentButton = this._createButton('_selectParent', icons.chevronUp);
     this._toolbox.appendChild(this._parentButton);
-
   }
 
-  addTo(parent) {
-    this._parent = parent;
+  _calcVisibleButtons() {
     this._moveButton.style.display = this._parent.movable ? '' : 'none';
+    this._moveButton.innerHTML = this._parent.movable === 'rows' ? icons.moveV : icons.moveH;
+
     this._editButton.style.display = this._parent.editable ? '' : 'none';
     this._deleteButton.style.display = this._parent.deletable ? '' : 'none';
     this._parentButton.style.display = this._parent.parent ? '' : 'none';
 
+    //this._addButton.style.display = this._parent.mode !== 'content' ? '' : 'none';
+    //this._columnsButton.style.display = this._parent.mode !== 'rows' ? '' : 'none';
+    //this._rowsButton.style.display = this._parent.mode !== 'columns' ? '' : 'none';
+  }
+
+  addTo(parent) {
+    this._parent = parent;
+    this._calcVisibleButtons();
     this._parent._elem.insertBefore(this._toolbox, this._parent._elem.firstChild);
   }
   detach() {
-    console.log('detach');
     if(!this._parent) return;
     this._parent._elem.removeChild(this._toolbox);
+    this._parent = null;
   }
 
   constructor(lE) {

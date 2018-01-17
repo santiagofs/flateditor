@@ -11,7 +11,7 @@ class LayoutEditor {
     if(test) return test;
     throw 'RetamaLayoutEditor: root element not found';
   }
-  
+
   get current() {
     return this._current;
   }
@@ -34,7 +34,7 @@ class LayoutEditor {
       for(const elem of parents) {
         if(elem.getAttribute('retama-layout')) return false;
       }
-      
+
       me._toolbox.detach();
       me.current = null;
     });
@@ -55,6 +55,6 @@ class LayoutEditor {
 
   // }
 }
-window.retamaLayoutEditor = LayoutEditor;
+window.RetamaLayoutEditor = LayoutEditor;
 
 export default LayoutEditor;

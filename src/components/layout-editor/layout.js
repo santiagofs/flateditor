@@ -13,6 +13,7 @@
 // content to be edited, if it acts as a content container
 //
 import * as Util from '../util';
+import LayoutModal from './modals/layout-modal';
 
 class Layout {
 
@@ -42,7 +43,7 @@ class Layout {
   }
   _createEditor() {
     var editorElem = document.createElement('div');
-    var editor = retamaTextEditor.create(editorElem);
+    var editor = RetamaTextEditor.create(editorElem);
     return editor;
   }
   _createLayout() {
@@ -106,7 +107,8 @@ class Layout {
   }
 
   get movable() {
-    return ((this._parent !== null) && !this._freezed);
+    if((this._parent === null) ||this._freezed) return false;
+    return this._parent.mode;
   }
   get deletable() {
     return ((this._parent !== null) && !this._freezed);
@@ -117,30 +119,50 @@ class Layout {
   get mode() {
     return this._mode;
   }
-  get parent() {
-    return this._parent;
-  }
-
   set mode(mode) {
     this._mode = mode;
     this._elem.setAttribute('retama-layout', mode);
     this._elem.classList.remove('content', 'rows', 'columns');
     this._elem.classList.add(mode);
   }
+  get parent() {
+    return this._parent;
+  }
 
-  addLayout(mode, position) {
+  _addLayout(mode) {
     if(!this.editable) return false;
 
     const layoutNew = this._createLayout();
 
     if(this.mode === 'content') {
       const layoutOriginal = this._createLayout();
-
       layoutOriginal._replaceContent(this._getContent());
       this._addContent(layoutOriginal._elem);
       this.mode = mode;
     }
+
     this._addContent(layoutNew._elem);
+  }
+  addLayout() {
+    if(this.mode === 'content') {
+      const me = this;
+      LayoutModal.show(function(){
+        const options = LayoutModal.element.getElementsByTagName('input');
+        for(let i=0; i<options.length; i++) {
+          if(options[i].checked) {
+            me._addLayout(options[i].value);
+            break;
+          }
+        }
+      });
+    } else {
+      this._addLayout(this.mode);
+    }
+  }
+
+  removeLayout() {
+    if(!this.editable) return false;
+    this._elem.parentNode.removeChild(this._elem);
   }
 
   constructor(elem, lE, parent) {
@@ -152,7 +174,7 @@ class Layout {
 
     this._init();
     this._addEvents();
-    
+
   }
 
 }

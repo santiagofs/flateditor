@@ -72,4 +72,4 @@ class TextEditor {
   }
 }
 
-window.retamaTextEditor = new TextEditor();
+window.RetamaTextEditor = new TextEditor();

@@ -1,0 +1,28 @@
+.layout-modal {
+  text-align: center;
+  .cells {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .cell {
+    width: 100px;
+    margin: 0px 30px;
+    cursor: pointer;
+
+    > * {
+      vertical-align: middle;
+    }
+
+    .img {
+      width: 100px;
+      height: 100px;
+      color: #909;
+      fill: #909;
+      margin-bottom: 15px;
+    }
+
+  }
+
+}
