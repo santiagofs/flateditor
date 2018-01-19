@@ -127,7 +127,8 @@ var icons = {
   'trash': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M192 188v216c0 6.627-5.373 12-12 12h-24c-6.627 0-12-5.373-12-12V188c0-6.627 5.373-12 12-12h24c6.627 0 12 5.373 12 12zm100-12h-24c-6.627 0-12 5.373-12 12v216c0 6.627 5.373 12 12 12h24c6.627 0 12-5.373 12-12V188c0-6.627-5.373-12-12-12zm132-96c13.255 0 24 10.745 24 24v12c0 6.627-5.373 12-12 12h-20v336c0 26.51-21.49 48-48 48H80c-26.51 0-48-21.49-48-48V128H12c-6.627 0-12-5.373-12-12v-12c0-13.255 10.745-24 24-24h74.411l34.018-56.696A48 48 0 0 1 173.589 0h100.823a48 48 0 0 1 41.16 23.304L349.589 80H424zm-269.611 0h139.223L276.16 50.913A6 6 0 0 0 271.015 48h-94.028a6 6 0 0 0-5.145 2.913L154.389 80zM368 128H80v330a6 6 0 0 0 6 6h276a6 6 0 0 0 6-6V128z"/></svg>',
   'bars': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg>',
   'columns': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64V160h160v256zm224 0H288V160h160v256z"/></svg>',
-  'chevronUp': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"/></svg>'
+  'chevronUp': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"/></svg>',
+  'pencil': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>'
 };
 
 exports.default = icons;
@@ -428,18 +429,20 @@ var Layout = function () {
     key: 'select',
     value: function select() {
       this._elem.classList.add('selected');
-      this._lE.current = this;
+      this._lE.current = this; // first, so we disable events first;
+      if (this._parent) this._parent.sortable = true;
     }
   }, {
     key: 'deselect',
     value: function deselect() {
+      if (this._parent) this._parent.sortable = false;
       this._elem.classList.remove('selected');
     }
   }, {
     key: '_addLayout',
     value: function _addLayout(mode) {
-      if (!this.editable) return false;
-
+      // if(!this.editable) return false;
+      // console.log('test');
       var layoutNew = this._createLayout();
 
       if (this.mode === 'content') {
@@ -450,6 +453,8 @@ var Layout = function () {
       }
 
       this._addContent(layoutNew._elem);
+
+      //this._makeSortable();
     }
   }, {
     key: 'addLayout',
@@ -476,6 +481,22 @@ var Layout = function () {
       this._elem.parentNode.removeChild(this._elem);
     }
   }, {
+    key: 'sortable',
+    get: function get() {
+      if (!this._sortable) return null;
+      return !this._sortable.option("disabled");
+    },
+    set: function set(mode) {
+      if (mode) {
+        if (this._elem.children < 2) return false;
+        this._sortable = Sortable.create(this._elem);
+      } else {
+        if (!this._sortable) return null;
+        this._sortable.destroy();
+        delete this._sortable;
+      }
+    }
+  }, {
     key: 'movable',
     get: function get() {
       if (this._parent === null || this._freezed) return false;
@@ -489,7 +510,12 @@ var Layout = function () {
   }, {
     key: 'editable',
     get: function get() {
-      return true;
+      return this.mode === 'content';
+    }
+  }, {
+    key: 'configurable',
+    get: function get() {
+      return false;
     }
   }, {
     key: 'mode',
@@ -599,7 +625,6 @@ var LayoutModal = function (_Modal) {
 
     _this.content = modalContent.outerHTML;
     _this.title = 'Select Layout';
-    console.log('child title', _this.title);
     return _this;
   }
 
@@ -719,7 +744,6 @@ var Modal = function () {
       return this._heading.innerHTML;
     },
     set: function set(title) {
-      console.log('super title', title);
       this._heading.innerHTML = title;
     }
   }, {
@@ -775,23 +799,27 @@ var Toolbox = function () {
   _createClass(Toolbox, [{
     key: '_createButton',
     value: function _createButton(cmd, content) {
-      var _this = this;
-
       var btn = document.createElement('a');
       btn.innerHTML = content;
-      btn.addEventListener('mousedown', function (evt) {
-        if (RetamaTextEditor !== undefined) RetamaTextEditor.setCurrentEditor(null);
-        _this[cmd](evt);
-      });
+      // btn.addEventListener('mousedown', (evt) => {
+      //   if(RetamaTextEditor!==undefined) RetamaTextEditor.setCurrentEditor(null);
+      //   this[cmd](evt);
+      // });
       btn.classList.add(cmd);
       return btn;
     }
   }, {
     key: '_move',
-    value: function _move() {}
+    value: function _move(evt) {
+      evt.stopPropagation();
+      //this._parent._parent._sortable.option('disabled', false);
+    }
   }, {
     key: '_edit',
     value: function _edit() {}
+  }, {
+    key: '_config',
+    value: function _config() {}
   }, {
     key: '_delete',
     value: function _delete(evt) {
@@ -820,18 +848,26 @@ var Toolbox = function () {
       this._toolbox.classList.add('lE-toolbox');
 
       this._moveButton = this._createButton('_move', _icons2.default.move);
+      this._moveButton.addEventListener('mousedown', this._moveHandler);
       this._toolbox.appendChild(this._moveButton);
 
-      this._editButton = this._createButton('_edit', _icons2.default.cog);
+      this._editButton = this._createButton('_edit', _icons2.default.pencil);
+      this._editButton.addEventListener('mousedown', this._editHandler);
       this._toolbox.appendChild(this._editButton);
 
       this._addButton = this._createButton('_add', _icons2.default.plus);
+      this._addButton.addEventListener('mousedown', this._addHandler);
       this._toolbox.appendChild(this._addButton);
 
       this._deleteButton = this._createButton('_delete', _icons2.default.trash);
+      this._deleteButton.addEventListener('mousedown', this._deleteHandler);
       this._toolbox.appendChild(this._deleteButton);
 
+      this._configButton = this._createButton('_config', _icons2.default.cog);
+      this._toolbox.appendChild(this._configButton);
+
       this._parentButton = this._createButton('_selectParent', _icons2.default.chevronUp);
+      this._parentButton.addEventListener('mousedown', this._selectParentHandler);
       this._toolbox.appendChild(this._parentButton);
     }
   }, {
@@ -839,8 +875,8 @@ var Toolbox = function () {
     value: function _calcVisibleButtons() {
       this._moveButton.style.display = this._parent.movable ? '' : 'none';
       this._moveButton.innerHTML = this._parent.movable === 'rows' ? _icons2.default.moveV : _icons2.default.moveH;
-
       this._editButton.style.display = this._parent.editable ? '' : 'none';
+      this._configButton.style.display = this._parent.configurable ? '' : 'none';
       this._deleteButton.style.display = this._parent.deletable ? '' : 'none';
       this._parentButton.style.display = this._parent.parent ? '' : 'none';
 
@@ -868,6 +904,13 @@ var Toolbox = function () {
     _classCallCheck(this, Toolbox);
 
     this.lE = lE;
+    this._addHandler = this._add.bind(this);
+    this._moveHandler = this._move.bind(this);
+    this._deleteHandler = this._delete.bind(this);
+    this._configHandler = this._config.bind(this);
+    this._selectParentHandler = this._selectParent.bind(this);
+    this._editHandler = this._edit.bind(this);
+
     this.create();
     this._parent = null;
   }

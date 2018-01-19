@@ -27,6 +27,21 @@ class Layout {
     this._indent = indent;
   }
 
+  get sortable() {
+    if(!this._sortable) return null;
+    return !this._sortable.option("disabled")
+  }
+  set sortable(mode) {
+    if(mode) {
+      if(this._elem.children < 2) return false;
+      this._sortable = Sortable.create(this._elem);
+    } else {
+      if(!this._sortable) return null;
+      this._sortable.destroy();
+      delete this._sortable;
+    }
+
+  }
 
   _addEvents() {
     const me = this;
@@ -100,9 +115,12 @@ class Layout {
   }
   select() {
     this._elem.classList.add('selected');
-    this._lE.current = this;
+    this._lE.current = this; // first, so we disable events first;
+    if(this._parent) this._parent.sortable = true;
+
   }
   deselect() {
+    if(this._parent) this._parent.sortable = false;
     this._elem.classList.remove('selected');
   }
 
@@ -114,7 +132,10 @@ class Layout {
     return ((this._parent !== null) && !this._freezed);
   }
   get editable() {
-    return true;
+    return this.mode === 'content';
+  }
+  get configurable() {
+    return false;
   }
   get mode() {
     return this._mode;
@@ -130,8 +151,8 @@ class Layout {
   }
 
   _addLayout(mode) {
-    if(!this.editable) return false;
-
+    // if(!this.editable) return false;
+    // console.log('test');
     const layoutNew = this._createLayout();
 
     if(this.mode === 'content') {
@@ -142,6 +163,9 @@ class Layout {
     }
 
     this._addContent(layoutNew._elem);
+
+    //this._makeSortable();
+
   }
   addLayout() {
     if(this.mode === 'content') {

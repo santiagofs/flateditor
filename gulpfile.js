@@ -43,6 +43,7 @@ gulp.task('texteditorsass', (cb) => {
 
 gulp.task('buildjs', (cb) => {
   return gulp.src([
+    './node_modules/sortablejs/Sortable.js',
     './build/js/modal.js',
     './build/js/text-editor.js',
     './build/js/layout-editor.js'

@@ -83,7 +83,6 @@ class Modal {
     return this._heading.innerHTML;
   }
   set title(title) {
-    console.log('super title', title);
     this._heading.innerHTML = title;
   }
 

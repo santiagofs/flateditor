@@ -42,7 +42,6 @@ class LayoutModal extends Modal {
     super();
     this.content = modalContent.outerHTML;
     this.title = 'Select Layout';
-    console.log('child title', this.title);
   }
 }
 

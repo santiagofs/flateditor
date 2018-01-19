@@ -23,6 +23,9 @@ class TextEditor {
   set enabled(bool) {
     this._enabled = bool;
     if(!this._enabled) this.setCurrentEditor(null);
+    for(var [id, editor] of Object.entries(this.editors)) {
+      editor.enabled = bool;
+    }
   }
 
   setCurrentEditor(current) {

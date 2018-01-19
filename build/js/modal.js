@@ -173,7 +173,6 @@ var Modal = function () {
       return this._heading.innerHTML;
     },
     set: function set(title) {
-      console.log('super title', title);
       this._heading.innerHTML = title;
     }
   }, {

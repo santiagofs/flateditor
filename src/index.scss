@@ -23,16 +23,16 @@ body {
   }
   &.active {
     outline: 1px solid #099;
+    &:empty {
+      &:after {
+        content: 'Click here to start editing';
+        font-style: italic;
+        color: #999;
+      }
+    }
   }
   overflow: auto;
-  &:empty {
-    &:after {
-      content: 'Click here to start editing';
-      font-style: italic;
-      color: #999;
-    }
 
-  }
 }
 
 

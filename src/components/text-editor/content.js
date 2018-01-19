@@ -37,7 +37,6 @@ class Content {
   format(cmd, value) {
     console.log(cmd, value);
     if(supportedExecComands.indexOf(cmd) !== -1) {
-      console.log('exec!!');
       document.execCommand(cmd, false, value);
     }
   }

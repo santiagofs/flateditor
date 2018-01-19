@@ -3,12 +3,34 @@ import Content from './content.js';
 class Editor {
 
   activate() {
-    console.log('activate');
     this._elem.classList.add('active');
   }
 
   deactivate() {
     this._elem.classList.remove('active');
+  }
+
+  _onMouseDown(evt) {
+    if(this._tE) this._tE.setCurrentEditor(this);
+  }
+  _setEvents () {
+    const me = this;
+    if(this._enabled) {
+      this._elem.setAttribute('contenteditable',true);
+      this._elem.addEventListener("mousedown", this._mouseDownHandler, true);
+    } else {
+      this._elem.setAttribute('contenteditable',false);
+      this._elem.removeEventListener("mousedown", this._mouseDownHandler);
+    }
+
+  }
+
+  get enabled() {
+    return this._enabled;
+  }
+  set enabled(bool) {
+    this._enabled = bool;
+    this._setEvents();
   }
 
   get content() {
@@ -21,19 +43,10 @@ class Editor {
 
   format(cmd, value) {
     this._content.format(cmd,value);
-    console.log(this._elem);
     this._elem.focus();
   }
 
-  _setEvents () {
-    const me = this;
-    this._elem.setAttribute('contenteditable',true);
-    this._elem.addEventListener("mousedown", function( evt ) {
-      if(!me._tE.enabled) return false;
-      //evt.stopPropagation();
-      if(me._tE) me._tE.setCurrentEditor(me);
-    }, true);
-  }
+
 
   constructor(elem, tE) {
 
@@ -44,9 +57,9 @@ class Editor {
     this._id = id ? id : '_' + Math.random().toString(36).substr(2, 9);
     this._elem.setAttribute('retama-editable', this._id);
 
-    this._setEvents();
-
+    this._mouseDownHandler = this._onMouseDown.bind(this);
     this._content = new Content(this._elem);
+    this.enabled = tE.enabled;
 
   }
 }

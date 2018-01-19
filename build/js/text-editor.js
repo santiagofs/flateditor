@@ -211,6 +211,32 @@ var TextEditor = function () {
     set: function set(bool) {
       this._enabled = bool;
       if (!this._enabled) this.setCurrentEditor(null);
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = Object.entries(this.editors)[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var _step3$value = _slicedToArray(_step3.value, 2),
+              id = _step3$value[0],
+              editor = _step3$value[1];
+
+          editor.enabled = bool;
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3.return) {
+            _iterator3.return();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
+          }
+        }
+      }
     }
   }]);
 
@@ -244,7 +270,6 @@ var Editor = function () {
   _createClass(Editor, [{
     key: 'activate',
     value: function activate() {
-      console.log('activate');
       this._elem.classList.add('active');
     }
   }, {
@@ -253,22 +278,36 @@ var Editor = function () {
       this._elem.classList.remove('active');
     }
   }, {
-    key: 'format',
-    value: function format(cmd, value) {
-      this._content.format(cmd, value);
-      console.log(this._elem);
-      this._elem.focus();
+    key: '_onMouseDown',
+    value: function _onMouseDown(evt) {
+      if (this._tE) this._tE.setCurrentEditor(this);
     }
   }, {
     key: '_setEvents',
     value: function _setEvents() {
       var me = this;
-      this._elem.setAttribute('contenteditable', true);
-      this._elem.addEventListener("mousedown", function (evt) {
-        if (!me._tE.enabled) return false;
-        //evt.stopPropagation();
-        if (me._tE) me._tE.setCurrentEditor(me);
-      }, true);
+      if (this._enabled) {
+        this._elem.setAttribute('contenteditable', true);
+        this._elem.addEventListener("mousedown", this._mouseDownHandler, true);
+      } else {
+        this._elem.setAttribute('contenteditable', false);
+        this._elem.removeEventListener("mousedown", this._mouseDownHandler);
+      }
+    }
+  }, {
+    key: 'format',
+    value: function format(cmd, value) {
+      this._content.format(cmd, value);
+      this._elem.focus();
+    }
+  }, {
+    key: 'enabled',
+    get: function get() {
+      return this._enabled;
+    },
+    set: function set(bool) {
+      this._enabled = bool;
+      this._setEvents();
     }
   }, {
     key: 'content',
@@ -292,9 +331,9 @@ var Editor = function () {
     this._id = id ? id : '_' + Math.random().toString(36).substr(2, 9);
     this._elem.setAttribute('retama-editable', this._id);
 
-    this._setEvents();
-
+    this._mouseDownHandler = this._onMouseDown.bind(this);
     this._content = new _content2.default(this._elem);
+    this.enabled = tE.enabled;
   }
 
   return Editor;
@@ -346,7 +385,6 @@ var Content = function () {
     value: function format(cmd, value) {
       console.log(cmd, value);
       if (supportedExecComands.indexOf(cmd) !== -1) {
-        console.log('exec!!');
         document.execCommand(cmd, false, value);
       }
     }
@@ -510,7 +548,7 @@ var Toolbox = function () {
         evt.stopPropagation();
         var cmd = this.getAttribute('fe-cmd');
         var value = this.getAttribute('fe-value');
-        me.tE.currentEditor.format(cmd, value);
+        me._tE.currentEditor.format(cmd, value);
 
         //var cmd = this.target
         //tE.currentEditor.content.insertTag(item.getAttribute('fe-selector'));
@@ -575,7 +613,7 @@ var Toolbox = function () {
   function Toolbox(tE) {
     _classCallCheck(this, Toolbox);
 
-    this.tE = tE;
+    this._tE = tE;
     this.create();
   }
 

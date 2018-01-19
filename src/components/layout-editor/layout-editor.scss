@@ -95,7 +95,7 @@ $color-5: #F9F871;
     &.selected {
       outline: 1px dotted #909;
       .retama-layout {
-        outline: none;
+        outline: inherit;
       }
       &.indent-1 {
         outline-color: #DB097E;

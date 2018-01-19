@@ -20,7 +20,7 @@ class Toolbox {
       evt.stopPropagation();
       var cmd = this.getAttribute('fe-cmd');
       var value = this.getAttribute('fe-value');
-      me.tE.currentEditor.format(cmd, value);
+      me._tE.currentEditor.format(cmd, value);
 
       //var cmd = this.target
       //tE.currentEditor.content.insertTag(item.getAttribute('fe-selector'));
@@ -54,7 +54,7 @@ class Toolbox {
   }
 
   constructor(tE) {
-    this.tE = tE;
+    this._tE = tE;
     this.create();
   }
 
